@@ -18,7 +18,7 @@ async function persistStore(store) {
   // TODO: Persist store to the filesystem.
 }
 
-const store = loadAndParseStore();
+let store = loadAndParseStore();
 const id = getInitialId(store);
 
 createBook({

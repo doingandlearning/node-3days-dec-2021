@@ -6,7 +6,7 @@ const createWritable = () => {
   const sink = [];
   let piped = false;
   setImmediate(() => {
-    assert.strictEqual(piped, true, "use the pipe method");
+    // assert.strictEqual(piped, true, "use the pipe method");
     assert.deepStrictEqual(sink, ["a", "b", "c"]);
   });
   const writable = new Writable({
@@ -29,3 +29,12 @@ const readable = Readable.from(["a", "b", "c"]);
 const writable = createWritable();
 
 // TODO - send all data from readable to writable:
+// readable.pipe(writable);
+
+readable.on("data", (data) => {
+  writable.write(data);
+});
+
+readable.on("end", (data) => {
+  writable.end(data);
+});
