@@ -1,16 +1,24 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 require("dotenv").config();
-const customerRoutes = require("./routes/customers.routes");
 
-const app = express();
+mongoose
+  .connect(
+    "mongodb+srv://bbc7:THISisa1234@cluster0.vmqlf.mongodb.net/isobel?retryWrites=true&w=majority",
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log("Database connected");
+    const bookRoutes = require("./routes/customers.routes");
 
-app.use(express.json());
+    const app = express();
+    app.use(express.json());
+    app.use("/books", bookRoutes);
 
-app.use("/customers", customerRoutes);
+    const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}.`);
-});
+    app.listen(PORT, () => {
+      console.log(`Listening on port ${PORT}.`);
+    });
+  });

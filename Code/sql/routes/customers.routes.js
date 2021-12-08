@@ -5,6 +5,7 @@ const customers = require("../controllers/customers.controllers.js");
 router.post("/", customers.create);
 
 // Retrieve all Customers
+router.get("/", customers.getAll);
 
 // Retrieve all checked out Customers
 
